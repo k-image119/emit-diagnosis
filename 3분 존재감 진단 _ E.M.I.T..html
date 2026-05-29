@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<!-- saved from url=(0113)file:///C:/Users/user/Downloads/3%EB%B6%84%20%EC%A1%B4%EC%9E%AC%EA%B0%90%20%EC%A7%84%EB%8B%A8%20_%20E.M.I.T..html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3분 존재감 진단 | E.M.I.T.</title>
+<link href="./3분 존재감 진단 _ E.M.I.T._files/css2" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FAFAF7;
+    --warm: #C4A882;
+    --warm-light: #EDE0D0;
+    --dark: #1C1814;
+    --mid: #6B5B4E;
+    --soft: #9A8878;
+    --border: #E2D8CF;
+  }
+
+  body {
+    background: var(--cream);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 16px 100px 16px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 40px rgba(100,80,60,0.10);
+    width: 100%;
+    max-width: 540px;
+    overflow: hidden;
+  }
+
+  /* ─── 헤더 ─── */
+  .header {
+    background: var(--dark);
+    padding: 32px 36px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    right: -30px; top: -30px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(196,168,130,0.12);
+  }
+
+  .header-tag {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--warm);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .header-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 26px;
+    color: #fff;
+    line-height: 1.4;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .header-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* 진행바 */
+  .progress-wrap {
+    padding: 0 36px;
+    background: var(--dark);
+    padding-bottom: 20px;
+  }
+
+  .progress-bar-bg {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: var(--warm);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progress-text {
+    font-size: 10px;
+    color: rgba(255,255,255,0.3);
+    margin-top: 6px;
+    letter-spacing: 0.1em;
+  }
+
+  /* ─── 질문 영역 ─── */
+  .question-wrap {
+    padding: 32px 36px;
+  }
+
+  .q-number {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: var(--warm);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  .q-text {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 18px;
+    color: var(--dark);
+    line-height: 1.65;
+    font-weight: 700;
+    margin-bottom: 26px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .option-btn {
+    background: #fff;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .option-btn:hover {
+    border-color: var(--warm);
+    background: #FDF9F5;
+  }
+
+  .option-btn.selected {
+    border-color: var(--warm);
+    background: linear-gradient(135deg, #FDF9F5 0%, #F7EEE3 100%);
+  }
+
+  .option-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    background: #fff;
+  }
+
+  .option-dot-inner {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.2s;
+  }
+
+  .option-btn.selected .option-dot {
+    border-color: var(--warm);
+    background: var(--warm);
+  }
+
+  .option-btn.selected .option-dot-inner {
+    background: #fff;
+  }
+
+  .option-label {
+    font-size: 13.5px;
+    color: var(--dark);
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .option-score {
+    margin-left: auto;
+    font-size: 10px;
+    color: var(--soft);
+    flex-shrink: 0;
+  }
+
+  /* 다음 버튼 */
+  .next-btn {
+    margin-top: 24px;
+    width: 100%;
+    padding: 15px;
+    background: var(--dark);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    transition: background 0.2s;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  .next-btn.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .next-btn.active:hover {
+    background: #2e2620;
+  }
+
+  /* ─── 결과 화면 ─── */
+  .result-wrap {
+    padding: 32px 36px;
+    display: none;
+  }
+
+  .result-label {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--warm);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .result-grade {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 28px;
+    color: var(--dark);
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 6px;
+  }
+
+  .result-score-bar {
+    margin: 18px 0;
+  }
+
+  .score-bar-bg {
+    height: 8px;
+    background: var(--warm-light);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #C4A882, #8B6A4A);
+    border-radius: 4px;
+    transition: width 1s ease;
+    width: 0%;
+  }
+
+  .score-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--soft);
+  }
+
+  .result-desc {
+    font-size: 13.5px;
+    color: var(--mid);
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: #FDF9F5;
+    border-left: 2.5px solid var(--warm);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .result-items {
+    margin-bottom: 22px;
+  }
+
+  .result-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--dark);
+    line-height: 1.6;
+  }
+
+  .result-item:last-child { border-bottom: none; }
+
+  .result-item-dot {
+    width: 6px; height: 6px;
+    background: var(--warm);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 6px;
+  }
+
+  .cta-box {
+    background: var(--dark);
+    border-radius: 12px;
+    padding: 20px 22px;
+    text-align: center;
+  }
+
+  .cta-box .cta-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 16px;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .cta-box .cta-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+
+  .cta-box .cta-btn {
+    display: inline-block;
+    background: var(--warm);
+    color: var(--dark);
+    font-size: 13px;
+    font-weight: 700;
+    padding: 11px 28px;
+    border-radius: 8px;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    border: none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  .retry-btn {
+    margin-top: 14px;
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: var(--soft);
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    font-family: 'Noto Sans KR', sans-serif;
+    width: 100%;
+    text-align: center;
+    padding: 6px;
+  }
+
+  .retry-btn:hover { color: var(--mid); }
+
+  /* 인트로 */
+  .intro-wrap {
+    padding: 32px 36px;
+  }
+
+  .intro-desc {
+    font-size: 14px;
+    color: var(--mid);
+    line-height: 1.95;
+    margin-bottom: 28px;
+    font-weight: 300;
+  }
+
+  .intro-info {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .info-chip {
+    flex: 1;
+    background: #FDF9F5;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .info-chip .chip-num {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 22px;
+    color: var(--warm);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .info-chip .chip-label {
+    font-size: 10px;
+    color: var(--soft);
+    letter-spacing: 0.08em;
+  }
+
+  .start-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--dark);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    transition: background 0.2s;
+  }
+
+  .start-btn:hover { background: #2e2620; }
+
+  /* 폼 스타일 */
+  .form-section { margin-bottom: 20px; }
+
+  .form-label {
+    font-size: 11px;
+    color: var(--soft);
+    letter-spacing: 0.06em;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .form-group { margin-bottom: 12px; }
+
+  .form-field-label {
+    display: block;
+    font-size: 11px;
+    color: var(--mid);
+    font-weight: 500;
+    margin-bottom: 5px;
+    letter-spacing: 0.04em;
+  }
+
+  .required { color: var(--warm); }
+  .optional { color: #bbb; font-weight: 300; }
+
+  .form-input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    color: var(--dark);
+    background: #fff;
+    outline: none;
+    transition: border 0.2s;
+  }
+
+  .form-input:focus { border-color: var(--warm); }
+  .form-input::placeholder { color: #ccc; }
+
+  .form-privacy {
+    font-size: 10px;
+    color: #999;
+    line-height: 1.7;
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: #fafafa;
+    border-radius: 6px;
+    border: 1px solid #f0ece7;
+  }
+
+  .form-agree {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+
+  .form-agree input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--warm);
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  .form-agree-text {
+    font-size: 11px;
+    color: var(--mid);
+    line-height: 1.7;
+  }
+
+  .form-agree-text strong {
+    color: var(--dark);
+    font-weight: 600;
+  }
+
+  .form-error {
+    font-size: 12px;
+    color: #c0392b;
+    margin-top: 8px;
+    min-height: 18px;
+  }
+
+
+  /* 페이드 애니메이션 */
+  .fade-in {
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .footer-brand {
+    text-align: center;
+    padding: 12px;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--border);
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <div class="header-tag">한국이미지&amp;마인드코칭센터 · E.M.I.T.</div>
+    <div class="header-title">나의 존재감은<br>지금 어느 상태일까?</div>
+    <div class="header-sub">10개의 질문으로 확인하는 존재감 진단 테스트</div>
+  </div>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none">
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+    <div class="progress-text" id="progressText"></div>
+  </div>
+
+  <!-- 인트로 -->
+  <div class="intro-wrap fade-in" id="introScreen">
+    <p class="intro-desc">
+      사람들 앞에서 자꾸 위축되거나,<br>
+      말하기 전에 상대 반응부터 살피고 있다면 —<br>
+      지금 내 존재감 상태를 먼저 확인해보세요.<br><br>
+      이 진단은 점수로 줄 세우는 게 아니라,<br>
+      <strong style="color: var(--dark); font-weight:500;">지금 어떤 회복이 필요한지</strong> 파악하는 데 목적이 있습니다.
+    </p>
+    <div class="intro-info">
+      <div class="info-chip">
+        <div class="chip-num">10</div>
+        <div class="chip-label">문항</div>
+      </div>
+      <div class="info-chip">
+        <div class="chip-num">3</div>
+        <div class="chip-label">분 소요</div>
+      </div>
+      <div class="info-chip">
+        <div class="chip-num">4</div>
+        <div class="chip-label">단계 결과</div>
+      </div>
+    </div>
+    <!-- 정보 입력 폼 -->
+    <div class="form-section">
+      <div class="form-label">아래 정보 입력 후 진단을 시작합니다</div>
+      <div class="form-group">
+        <label class="form-field-label">이름 <span class="required">*</span></label>
+        <input type="text" id="inputName" class="form-input" placeholder="홍길동">
+      </div>
+      <div class="form-group">
+        <label class="form-field-label">전화번호 <span class="required">*</span></label>
+        <input type="tel" id="inputPhone" class="form-input" placeholder="010-0000-0000">
+      </div>
+      <div class="form-group">
+        <label class="form-field-label">이메일 <span class="required">*</span></label>
+        <input type="email" id="inputEmail" class="form-input" placeholder="example@email.com">
+      </div>
+      <div class="form-privacy">
+        수집 항목: 이름, 전화번호, 이메일<br>
+        수집 목적: 진단 결과 안내 및 코칭 상담 연결<br>
+        보유 기간: 동의 철회 시 또는 목적 달성 후 즉시 파기
+      </div>
+      <label class="form-agree">
+        <input type="checkbox" id="agreeCheck">
+        <span class="form-agree-text">
+          <strong>[필수] 개인정보 수집 및 이용에 동의합니다.</strong><br>
+          위 내용을 확인하였으며, 한국이미지&amp;마인드코칭센터의 개인정보 수집·이용에 동의합니다.
+        </span>
+      </label>
+      <div class="form-error" id="formError"></div>
+    </div>
+
+    <button class="start-btn" onclick="startTest()">진단 시작하기 →</button>
+  </div>
+
+  <!-- 질문 -->
+  <div class="question-wrap fade-in" id="questionScreen" style="display:none">
+    <div class="q-number" id="qNumber"></div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="optionsWrap"></div>
+    <button class="next-btn" id="nextBtn" onclick="nextQuestion()">다음 →</button>
+  </div>
+
+  <!-- 결과 -->
+  <div class="result-wrap fade-in" id="resultScreen">
+  </div>
+
+  <div class="footer-brand">E · M · I · T · COACHING SYSTEM</div>
+</div>
+
+<script>
+const questions = [
+  {
+    text: "사람이 많은 자리에 가면\n에너지가 급격히 떨어지고 지쳐버린다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "말을 하기 전에 상대방 반응부터\n먼저 살피게 된다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "회의나 모임에서 하고 싶은 말이 있어도\n선뜻 꺼내기 어렵다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "내 능력은 충분한데\n존재감이 약해 손해를 보는 것 같다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "누군가 나를 무시하는 느낌이 들면\n오래 마음에 남는다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "스스로를 타인과 비교하며\n자꾸 낮추게 된다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "말하고 나면 '저 말이 맞았나'\n후회하거나 되새기는 일이 많다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "특정 사람 앞에서 유독\n작아지거나 위축되는 경험이 있다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "나를 드러내는 것이 불편하거나\n두려운 편이다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  },
+  {
+    text: "세상이 나를 대하는 방식을\n바꾸고 싶다는 생각이 든다.",
+    options: ["전혀 그렇지 않다", "가끔 그런 편이다", "자주 그런 편이다", "항상 그렇다"]
+  }
+];
+
+const results = [
+  {
+    range: [0, 10],
+    grade: "안정형",
+    title: "존재감이 비교적 안정된 상태입니다",
+    desc: "현재 스스로를 표현하는 데 큰 어려움이 없는 편입니다. 다만 특정 상황이나 관계에서 작아지는 순간이 있다면, 그 패턴을 살펴볼 필요가 있습니다.",
+    items: ["특정 상황에서의 위축 패턴 점검", "존재감을 더 강하게 발산하는 방법 탐색", "리더십·영향력 강화를 위한 코칭 고려"],
+    cta: "존재감 강화 상담 신청"
+  },
+  {
+    range: [11, 19],
+    grade: "회복 필요형",
+    title: "존재감이 일부 눌려 있는 상태입니다",
+    desc: "특정 상황에서 자신을 작게 만드는 패턴이 반복되고 있을 수 있습니다. 겉으로는 괜찮아 보여도 내면의 에너지 소모가 누적되고 있는 단계입니다.",
+    items: ["위축되는 상황의 패턴 파악이 우선", "무의식적 신념 체계 점검 필요", "E.M.I.T. Energy + Mindset 단계 집중 권장"],
+    cta: "1:1 무료 진단 상담 신청"
+  },
+  {
+    range: [20, 26],
+    grade: "회복 시급형",
+    title: "존재감이 상당히 눌려 있는 상태입니다",
+    desc: "오랫동안 눌린 상태가 지속되면서 자신을 드러내는 것 자체에 에너지 소모가 큰 상태입니다. 노력으로 해결이 안 됐던 이유가 여기에 있습니다. 뿌리부터 접근하는 것이 필요합니다.",
+    items: ["몸의 에너지 상태·긴장 패턴 재정렬 필요", "무의식 속 자기 제한 신념 해소", "정체성 재설계 → 말과 행동의 자연스러운 변화"],
+    cta: "존재감 회복 상담 — 무료 신청"
+  },
+  {
+    range: [27, 30],
+    grade: "긴급 회복형",
+    title: "존재감이 장기간 억압된 상태입니다",
+    desc: "지금 이 상태가 얼마나 오래됐는지 생각해보세요. 의지로, 노력으로 바꾸려 해봤지만 반복되고 있다면 — 접근 방법 자체를 바꿔야 할 시점입니다. 혼자 해결하기보다 전문적인 개입이 효과적입니다.",
+    items: ["즉각적인 에너지 상태 재정렬 필요", "오래 쌓인 자기 억압 패턴 해소", "1:1 맞춤 E.M.I.T. 집중 코칭 적합"],
+    cta: "지금 바로 상담 연결하기"
+  }
+];
+
+let current = 0;
+let scores = [];
+let selectedScore = null;
+
+function startTest() {
+  const name = document.getElementById('inputName').value.trim();
+  const phone = document.getElementById('inputPhone').value.trim();
+  const agree = document.getElementById('agreeCheck').checked;
+  const errEl = document.getElementById('formError');
+
+  if (!name) {
+    errEl.textContent = '✕ 이름을 입력해주세요.';
+    document.getElementById('inputName').focus();
+    return;
+  }
+  if (!phone) {
+    errEl.textContent = '✕ 전화번호를 입력해주세요.';
+    document.getElementById('inputPhone').focus();
+    return;
+  }
+  const email = document.getElementById('inputEmail').value.trim();
+  if (!email) {
+    errEl.textContent = '✕ 이메일을 입력해주세요.';
+    document.getElementById('inputEmail').focus();
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.textContent = '✕ 올바른 이메일 형식을 입력해주세요.';
+    document.getElementById('inputEmail').focus();
+    return;
+  }
+  if (!agree) {
+    errEl.textContent = '✕ 개인정보 수집 및 이용에 동의해주세요.';
+    return;
+  }
+  errEl.textContent = '';
+
+  // 사용자 정보 저장
+  window.userInfo = { name, phone, email };
+
+  document.getElementById('introScreen').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('questionScreen').style.display = 'block';
+  document.getElementById('questionScreen').classList.add('fade-in');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('qNumber').textContent = `Q${current + 1} / ${questions.length}`;
+  document.getElementById('qText').textContent = q.text;
+
+  const wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML = '';
+  selectedScore = null;
+  document.getElementById('nextBtn').classList.remove('active');
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<div class="option-dot"><span class="option-dot-inner"></span></div><span class="option-label">${opt}</span>`;
+    btn.onclick = () => selectOption(i, btn);
+    wrap.appendChild(btn);
+  });
+
+  // 진행바
+  const pct = (current / questions.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${current + 1} / ${questions.length} 완료`;
+}
+
+function selectOption(score, btn) {
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedScore = score;
+  document.getElementById('nextBtn').classList.add('active');
+}
+
+function nextQuestion() {
+  if (selectedScore === null) return;
+  scores.push(selectedScore);
+  current++;
+
+  if (current >= questions.length) {
+    showResult();
+  } else {
+    const qs = document.getElementById('questionScreen');
+    qs.style.animation = 'none';
+    void qs.offsetWidth;
+    qs.style.animation = 'fadeIn 0.4s ease';
+    renderQuestion();
+  }
+}
+
+function showResult() {
+  const total = scores.reduce((a, b) => a + b, 0);
+  const pct = Math.round((total / 30) * 100);
+
+  document.getElementById('progressFill').style.width = '100%';
+  document.getElementById('progressText').textContent = '진단 완료';
+  document.getElementById('questionScreen').style.display = 'none';
+
+  const r = results.find(res => total >= res.range[0] && total <= res.range[1]);
+
+  // 구글 시트로 데이터 전송
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyTpcPQtylvCtg8_qLecZzbGOCVHH7zMhI5XdC0vCtvMnr-35AZT2B3hjuB-7rWRHkChA/exec';
+  try {
+    const payload = {
+      name: (window.userInfo || {}).name || '',
+      phone: (window.userInfo || {}).phone || '',
+      email: (window.userInfo || {}).email || '',
+      grade: r.grade,
+      score: total
+    };
+    // 문항별 답변 추가 (0=전혀그렇지않다 ~ 3=항상그렇다)
+    scores.forEach(function(s, i) {
+      payload['q' + (i + 1)] = s;
+    });
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {}
+
+  const wrap = document.getElementById('resultScreen');
+  wrap.style.display = 'block';
+  wrap.classList.add('fade-in');
+
+  wrap.innerHTML = `
+    <div class="result-label">진단 결과</div>
+    <div class="result-grade">${r.grade}<br><span style="font-size:16px;font-weight:400;color:var(--mid)">${r.title}</span></div>
+
+    <div class="result-score-bar">
+      <div class="score-bar-bg">
+        <div class="score-bar-fill" id="scoreFill"></div>
+      </div>
+      <div class="score-labels">
+        <span>안정</span>
+        <span>회복 필요</span>
+        <span>회복 시급</span>
+        <span>긴급</span>
+      </div>
+    </div>
+
+    <div class="result-desc">${r.desc}</div>
+
+    <div class="result-items">
+      ${r.items.map(item => `
+        <div class="result-item">
+          <div class="result-item-dot"></div>
+          <span>${item}</span>
+        </div>
+      `).join('')}
+    </div>
+
+    <div class="cta-box">
+      <div class="cta-title">지금 어떤 회복이 필요한지<br>1:1로 이야기 나눠드립니다</div>
+      <div class="cta-sub">부담 없이 현재 상태만 나눠주세요.<br>카카오채널로 바로 연결됩니다.</div>
+      <button class="cta-btn" onclick="window.open('https://open.kakao.com/o/sAOQs49h','_blank')">
+        ${r.cta}
+      </button>
+    </div>
+
+    <button class="retry-btn" onclick="retryTest()">↺ 다시 진단하기</button>
+  `;
+
+  setTimeout(() => {
+    document.getElementById('scoreFill').style.width = pct + '%';
+  }, 100);
+}
+
+function retryTest() {
+  current = 0;
+  scores = [];
+  selectedScore = null;
+
+  document.getElementById('resultScreen').style.display = 'none';
+  document.getElementById('progressFill').style.width = '0%';
+  document.getElementById('progressText').textContent = '';
+  document.getElementById('questionScreen').style.display = 'block';
+  renderQuestion();
+}
+</script>
+
+
+
+</body></html>
