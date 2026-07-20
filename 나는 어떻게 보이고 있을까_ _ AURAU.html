@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<!-- saved from url=(0161)file:///C:/Users/user/Downloads/%EB%82%98%EB%8A%94%EC%96%B4%EB%96%BB%EA%B2%8C%EB%B3%B4%EC%9D%B4%EA%B3%A0%EC%9E%88%EC%9D%84%EA%B9%8C_%EC%A7%84%EB%8B%A8%20(3).html -->
+<html lang="ko"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>나는 어떻게 보이고 있을까? | AURAU</title>
+<link href="./나는 어떻게 보이고 있을까_ _ AURAU_files/css2" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #FAFAF7;
+    --orange: #E8622A;
+    --orange-light: #FDF0EB;
+    --dark: #1C1814;
+    --mid: #6B5B4E;
+    --soft: #9A8878;
+    --border: #E2D8CF;
+    --p1: #E8622A;
+    --p2: #4A7FA5;
+    --p3: #6B9E6B;
+  }
+  body {
+    background: var(--cream);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 16px 100px;
+  }
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 40px rgba(100,80,60,0.10);
+    width: 100%; max-width: 540px;
+    overflow: hidden;
+  }
+
+  /* 헤더 */
+  .header {
+    background: var(--dark);
+    padding: 32px 36px 0;
+    position: relative; overflow: hidden;
+  }
+  .header::before {
+    content: ''; position: absolute;
+    right: -30px; top: -30px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: rgba(232,98,42,0.1);
+  }
+  .header-tag {
+    font-size: 10px; letter-spacing: 0.2em;
+    color: var(--orange); font-weight: 500; margin-bottom: 10px;
+  }
+  .header-title {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 24px; color: #fff;
+    line-height: 1.45; font-weight: 700; margin-bottom: 8px;
+  }
+  .header-sub {
+    font-size: 12px; color: rgba(255,255,255,0.4);
+    line-height: 1.7; font-weight: 300; padding-bottom: 24px;
+  }
+
+  /* 진행바 */
+  .progress-wrap {
+    background: var(--dark);
+    padding: 0 36px 20px;
+  }
+  .progress-bar-bg {
+    height: 3px; background: rgba(255,255,255,0.1);
+    border-radius: 2px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; background: var(--orange);
+    border-radius: 2px; transition: width 0.4s ease; width: 0%;
+  }
+  .progress-text {
+    font-size: 10px; color: rgba(255,255,255,0.3);
+    margin-top: 6px; letter-spacing: 0.1em;
+  }
+
+  /* 파트 뱃지 */
+  .part-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.05em; margin-bottom: 14px;
+  }
+  .part-badge.p1 { background: rgba(232,98,42,0.1); color: var(--p1); }
+  .part-badge.p2 { background: rgba(74,127,165,0.1); color: var(--p2); }
+  .part-badge.p3 { background: rgba(107,158,107,0.1); color: var(--p3); }
+  .part-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .p1 .part-dot { background: var(--p1); }
+  .p2 .part-dot { background: var(--p2); }
+  .p3 .part-dot { background: var(--p3); }
+
+  /* 질문 */
+  .question-wrap { padding: 32px 36px; }
+  .q-number {
+    font-size: 10px; letter-spacing: 0.18em;
+    color: var(--soft); font-weight: 500; margin-bottom: 10px;
+  }
+  .q-text {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 17px; color: var(--dark);
+    line-height: 1.7; font-weight: 700; margin-bottom: 24px;
+  }
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    background: #fff; border: 1.5px solid var(--border);
+    border-radius: 10px; padding: 13px 18px;
+    cursor: pointer; text-align: left;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .option-btn:hover { border-color: var(--orange); background: var(--orange-light); }
+  .option-btn.selected { border-color: var(--orange); background: var(--orange-light); }
+  .option-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: #fff; transition: all 0.2s;
+  }
+  .option-dot-inner {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: transparent; transition: all 0.2s;
+  }
+  .option-btn.selected .option-dot { border-color: var(--orange); background: var(--orange); }
+  .option-btn.selected .option-dot-inner { background: #fff; }
+  .option-label { font-size: 13.5px; color: var(--dark); line-height: 1.5; }
+  .option-score { margin-left: auto; font-size: 11px; color: var(--soft); font-weight: 500; }
+
+  /* 네비게이션 */
+  .nav-wrap {
+    padding: 0 36px 32px;
+    display: flex; gap: 10px;
+  }
+  .btn-prev {
+    flex: 1; padding: 14px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    background: #fff; color: var(--mid);
+    font-size: 14px; font-weight: 500; cursor: pointer;
+  }
+  .btn-next {
+    flex: 2; padding: 14px;
+    background: var(--dark); border: none; border-radius: 10px;
+    color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-next:hover { background: #2C2420; }
+  .btn-next:disabled { background: var(--border); cursor: not-allowed; }
+
+  /* 인트로 */
+  .intro-wrap { padding: 36px; }
+  .intro-poster {
+    background: var(--orange-light);
+    border-radius: 14px; padding: 28px 24px;
+    margin-bottom: 24px; text-align: center;
+    border-left: 4px solid var(--orange);
+  }
+  .intro-line {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 15px; color: var(--dark);
+    line-height: 2; font-weight: 400;
+  }
+  .intro-line .hl { color: var(--orange); font-weight: 700; }
+  .intro-desc {
+    font-size: 13px; color: var(--mid);
+    line-height: 1.8; margin-bottom: 20px;
+    text-align: center;
+  }
+  .intro-parts {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-bottom: 24px;
+  }
+  .intro-part {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 16px; border-radius: 10px;
+    border: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .intro-part-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .intro-part-num.c1 { background: var(--p1); }
+  .intro-part-num.c2 { background: var(--p2); }
+  .intro-part-num.c3 { background: var(--p3); }
+  .intro-part-text { color: var(--dark); line-height: 1.5; }
+  .btn-start {
+    width: 100%; padding: 16px;
+    background: var(--dark); border: none; border-radius: 12px;
+    color: #fff; font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+
+  /* 개인정보 */
+  .info-wrap { padding: 36px; }
+  .info-label { font-size: 12px; color: var(--mid); margin-bottom: 6px; font-weight: 500; }
+  .info-input {
+    width: 100%; padding: 13px 16px;
+    border: 1.5px solid var(--border); border-radius: 10px;
+    font-size: 14px; font-family: inherit;
+    margin-bottom: 14px; outline: none;
+    transition: border-color 0.2s;
+  }
+  .info-input:focus { border-color: var(--orange); }
+  .info-err { font-size: 12px; color: #E05050; margin-bottom: 12px; display: none; }
+
+  /* 결과 */
+  .result-wrap { padding: 36px; }
+  .result-main-type {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 22px; color: var(--dark);
+    font-weight: 800; line-height: 1.4;
+    margin-bottom: 6px;
+  }
+  .result-sub { font-size: 13px; color: var(--soft); margin-bottom: 28px; }
+
+  .result-parts { display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+  .result-part {
+    border-radius: 12px; padding: 18px 20px;
+    border: 1px solid var(--border);
+  }
+  .result-part.high { border-width: 2px; }
+  .result-part.high.rp1 { border-color: var(--p1); background: rgba(232,98,42,0.04); }
+  .result-part.high.rp2 { border-color: var(--p2); background: rgba(74,127,165,0.04); }
+  .result-part.high.rp3 { border-color: var(--p3); background: rgba(107,158,107,0.04); }
+
+  .rp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .rp-title { font-size: 13px; font-weight: 700; color: var(--dark); }
+  .rp-score { font-size: 12px; font-weight: 600; }
+  .rp1 .rp-score { color: var(--p1); }
+  .rp2 .rp-score { color: var(--p2); }
+  .rp3 .rp-score { color: var(--p3); }
+
+  .rp-bar-bg { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+  .rp-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease; }
+  .rp1 .rp-bar-fill { background: var(--p1); }
+  .rp2 .rp-bar-fill { background: var(--p2); }
+  .rp3 .rp-bar-fill { background: var(--p3); }
+
+  .rp-desc { font-size: 12.5px; color: var(--mid); line-height: 1.7; }
+
+  .result-insight {
+    background: var(--dark); border-radius: 12px;
+    padding: 20px 22px; margin-bottom: 20px;
+  }
+  .result-insight-title { font-size: 11px; letter-spacing: 0.15em; color: var(--orange); margin-bottom: 8px; }
+  .result-insight-text {
+    font-family: 'Nanum Myeongjo', serif;
+    font-size: 16px; color: #fff; line-height: 1.7;
+  }
+
+  .result-cta {
+    background: var(--orange); border-radius: 12px;
+    padding: 20px 22px; text-align: center; cursor: pointer;
+    text-decoration: none; display: block;
+  }
+  .result-cta-title { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .result-cta-sub { font-size: 12px; color: rgba(255,255,255,0.8); }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- 인트로 화면 -->
+  <div id="introScreen">
+    <div class="header">
+      <div class="header-tag">AURAU · 존재감 진단</div>
+      <div class="header-title">나는 어떻게<br>보이고 있을까?</div>
+      <div class="header-sub">내가 의도한 나와 사람들이 보는 나 사이의 간격을 확인합니다</div>
+    </div>
+    <div class="intro-wrap">
+      <div class="intro-poster">
+        <div class="intro-line">나는 신중했을 뿐인데 <span class="hl">자신 없어</span> 보였습니다.</div>
+        <div class="intro-line">상대를 배려했을 뿐인데 <span class="hl">주관 없어</span> 보였습니다.</div>
+        <div class="intro-line">나서지 않았을 뿐인데 <span class="hl">할 수 없는 사람</span>으로 보였습니다.</div>
+      </div>
+      <p class="intro-desc">15개 문항 · 약 3분 소요<br>3개 파트별 결과로 정확한 원인을 찾아드립니다</p>
+      <div class="intro-parts">
+        <div class="intro-part">
+          <div class="intro-part-num c1">1</div>
+          <div class="intro-part-text"><b>신중함 vs 자신 없음</b><br>나의 태도가 어떻게 읽히는지</div>
+        </div>
+        <div class="intro-part">
+          <div class="intro-part-num c2">2</div>
+          <div class="intro-part-text"><b>배려 vs 주관 없음</b><br>나의 관계 방식이 어떻게 보이는지</div>
+        </div>
+        <div class="intro-part">
+          <div class="intro-part-num c3">3</div>
+          <div class="intro-part-text"><b>겸손함 vs 무능함</b><br>나의 능력이 어떻게 평가받는지</div>
+        </div>
+      </div>
+      <button class="btn-start" onclick="showInfo()">진단 시작하기 →</button>
+    </div>
+  </div>
+
+  <!-- 개인정보 화면 -->
+  <div id="infoScreen" style="display:none;">
+    <div class="header">
+      <div class="header-tag">AURAU · 존재감 진단</div>
+      <div class="header-title">아래 정보 입력 후<br>진단을 시작합니다</div>
+      <div class="header-sub">결과 확인 및 맞춤 코칭 연결에 사용됩니다</div>
+    </div>
+    <div class="info-wrap">
+      <div class="info-label">이름 *</div>
+      <input class="info-input" id="inputName" type="text" placeholder="홍길동">
+      <div class="info-label">전화번호 *</div>
+      <input class="info-input" id="inputPhone" type="tel" placeholder="010-0000-0000">
+      <div class="info-label">이메일 *</div>
+      <input class="info-input" id="inputEmail" type="email" placeholder="example@email.com">
+      <div class="info-err" id="infoErr">모든 항목을 입력해주세요.</div>
+      <button class="btn-start" onclick="startTest()">진단 시작하기 →</button>
+    </div>
+  </div>
+
+  <!-- 질문 화면 -->
+  <div id="questionScreen" style="display:none;">
+    <div class="header">
+      <div class="header-tag">AURAU · 존재감 진단</div>
+      <div class="header-title" id="qPartTitle"></div>
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressBar"></div></div>
+      <div class="progress-text" id="progressText"></div>
+    </div>
+    <div class="question-wrap">
+      <div class="q-number" id="qNumber"></div>
+      <div id="partBadge"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="options" id="optionsWrap"></div>
+    </div>
+    <div class="nav-wrap">
+      <button class="btn-prev" id="btnPrev" onclick="prevQ()">← 이전</button>
+      <button class="btn-next" id="btnNext" onclick="nextQ()" disabled="">다음 →</button>
+    </div>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div id="resultScreen" style="display:none;">
+    <div class="header">
+      <div class="header-tag">AURAU · 진단 결과</div>
+      <div class="header-title" id="resultTitle"></div>
+      <div class="header-sub" id="resultSub" style="padding-bottom:24px;"></div>
+    </div>
+    <div class="result-wrap">
+      <div class="result-parts" id="resultParts"></div>
+      <div class="result-insight">
+        <div class="result-insight-title">INSIGHT</div>
+        <div class="result-insight-text" id="resultInsight"></div>
+      </div>
+      <a href="https://open.kakao.com/o/sAOQs49h" class="result-cta">
+        <div class="result-cta-title">1:1 무료 상담 신청하기</div>
+        <div class="result-cta-sub">카카오톡으로 바로 연결됩니다</div>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [
+  // PART 1 — 신중함 vs 자신 없음 (Q1~5)
+  { part: 1, text: '발언하기 전에 충분히 생각하고 말하는 편이다' },
+  { part: 1, text: '상대방이 내 말을 진지하게 듣지 않는 느낌이 든다' },
+  { part: 1, text: '먼저 말하기보다 다른 사람이 말한 후에 반응하는 편이다' },
+  { part: 1, text: '내 의견을 말했는데 흘려듣거나 무시당한 경험이 있다' },
+  { part: 1, text: '회의나 모임에서 내 말이 묻히는 경우가 많다' },
+  // PART 2 — 배려 vs 주관 없음 (Q6~10)
+  { part: 2, text: '상대의 의견을 먼저 듣고 내 의견을 조율하는 편이다' },
+  { part: 2, text: '나의 의견보다 상대의 의견이 채택되는 경우가 많다' },
+  { part: 2, text: '"어떻게 생각해요?"라는 질문을 받으면 부담스럽다' },
+  { part: 2, text: '결정을 내리기보다 결정을 따르는 쪽이 편하다' },
+  { part: 2, text: '내가 주도한 일인데 다른 사람이 인정받은 경험이 있다' },
+  // PART 3 — 겸손함 vs 무능함 (Q11~15)
+  { part: 3, text: '할 수 있어도 자원하지 않는 편이다' },
+  { part: 3, text: '기회가 왔을 때 망설이다 놓친 경험이 있다' },
+  { part: 3, text: '내 능력을 낮게 평가받는 것 같다는 느낌이 든다' },
+  { part: 3, text: '중요한 자리나 역할에서 제외된 경험이 있다' },
+  { part: 3, text: '도움을 요청받기보다 내가 먼저 도움을 청하는 편이다' },
+];
+
+const PART_INFO = {
+  1: { label: 'PART 1', name: '신중함 vs 자신 없음', color: 'p1', badgeClass: 'p1' },
+  2: { label: 'PART 2', name: '배려 vs 주관 없음', color: 'p2', badgeClass: 'p2' },
+  3: { label: 'PART 3', name: '겸손함 vs 무능함', color: 'p3', badgeClass: 'p3' },
+};
+
+const OPTIONS = [
+  { label: '전혀 그렇지 않다', score: 0 },
+  { label: '상황에 따라 그렇다', score: 1 },
+  { label: '대체로 그렇다', score: 2 },
+];
+
+let current = 0;
+let scores = new Array(15).fill(-1);
+let userInfo = {};
+
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw7akK2dKZOh8rLbLioA6uNFaPLn6S_0B7oNZrB9ZvMJJXGGU-lhp73dvjiAUfIHE4ZgA/exec';
+
+function showInfo() {
+  document.getElementById('introScreen').style.display = 'none';
+  document.getElementById('infoScreen').style.display = 'block';
+}
+
+function formatPhone(val) {
+  var num = val.replace(/[^0-9]/g, '');
+  if (num.length <= 3) return num;
+  if (num.length <= 7) return num.slice(0,3) + '-' + num.slice(3);
+  return num.slice(0,3) + '-' + num.slice(3,7) + '-' + num.slice(7,11);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var ph = document.getElementById('inputPhone');
+  if (ph) ph.addEventListener('input', function(e) {
+    e.target.value = formatPhone(e.target.value);
+  });
+});
+
+function startTest() {
+  var name = document.getElementById('inputName').value.trim();
+  var phone = document.getElementById('inputPhone').value.trim();
+  var email = document.getElementById('inputEmail').value.trim();
+  var err = document.getElementById('infoErr');
+  if (!name || !phone || !email) { err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  userInfo = { name, phone, email };
+  document.getElementById('infoScreen').style.display = 'none';
+  document.getElementById('questionScreen').style.display = 'block';
+  renderQ();
+}
+
+function renderQ() {
+  var q = QUESTIONS[current];
+  var pi = PART_INFO[q.part];
+  var total = QUESTIONS.length;
+
+  document.getElementById('qPartTitle').textContent = pi.name;
+  document.getElementById('progressBar').style.width = ((current+1)/total*100) + '%';
+  document.getElementById('progressText').textContent = (current+1) + ' / ' + total;
+  document.getElementById('qNumber').textContent = 'Q ' + (current+1);
+
+  document.getElementById('partBadge').innerHTML =
+    '<div class="part-badge ' + pi.badgeClass + '"><div class="part-dot"></div>' + pi.label + ' · ' + pi.name + '</div>';
+
+  document.getElementById('qText').textContent = q.text;
+
+  var wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML = '';
+  OPTIONS.forEach(function(opt, i) {
+    var btn = document.createElement('button');
+    btn.className = 'option-btn' + (scores[current] === opt.score ? ' selected' : '');
+    btn.innerHTML =
+      '<div class="option-dot"><div class="option-dot-inner"></div></div>' +
+      '<span class="option-label">' + opt.label + '</span>';
+    btn.onclick = function() {
+      scores[current] = opt.score;
+      document.querySelectorAll('.option-btn').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      document.getElementById('btnNext').disabled = false;
+    };
+    wrap.appendChild(btn);
+  });
+
+  document.getElementById('btnPrev').style.display = current === 0 ? 'none' : 'block';
+  document.getElementById('btnNext').disabled = scores[current] === -1;
+
+  var isLast = current === total - 1;
+  document.getElementById('btnNext').textContent = isLast ? '결과 보기 →' : '다음 →';
+}
+
+function nextQ() {
+  if (scores[current] === -1) return;
+  if (current < QUESTIONS.length - 1) {
+    current++;
+    renderQ();
+  } else {
+    showResult();
+  }
+}
+
+function prevQ() {
+  if (current > 0) { current--; renderQ(); }
+}
+
+function showResult() {
+  document.getElementById('questionScreen').style.display = 'none';
+  document.getElementById('resultScreen').style.display = 'block';
+
+  // 파트별 점수 계산
+  var p1 = 0, p2 = 0, p3 = 0;
+  QUESTIONS.forEach(function(q, i) {
+    if (q.part === 1) p1 += scores[i];
+    else if (q.part === 2) p2 += scores[i];
+    else if (q.part === 3) p3 += scores[i];
+  });
+  var max = 10; // 파트당 최대 15점 (5문항×3점)
+
+  // 주요 유형 판정
+  var parts = [
+    { part: 1, score: p1, label: '유형 1. 신중함–확신 간극형',
+      high: '신중하게 생각하는 강점이 있지만,\n확신을 밖으로 전달하는 신호가 부족한 유형입니다.',
+      low: '확신을 전달하는 신호가 잘 작동하고 있습니다. 이 균형을 유지하세요.' },
+    { part: 2, score: p2, label: '유형 2. 배려–주관 간극형',
+      high: '상대를 존중하고 조율하는 능력이 있지만,\n자신의 기준과 의견이 충분히 드러나지 않는 유형입니다.',
+      low: '배려와 주관의 균형이 잘 잡혀 있습니다. 이 균형을 유지하세요.' },
+    { part: 3, score: p3, label: '유형 3. 겸손–역량 간극형',
+      high: '능력과 경험이 있어도 먼저 드러내지 않아,\n실제 역량보다 낮게 평가받을 가능성이 있는 유형입니다.',
+      low: '역량이 자연스럽게 드러나고 있습니다. 이 균형을 유지하세요.' },
+  ];
+
+  var highest = parts.reduce(function(a, b) { return a.score > b.score ? a : b; });
+  var totalScore = p1 + p2 + p3;
+  var isComplex = parts.filter(function(p) { return p.score >= 6; }).length >= 2;
+
+  // 메인 타이틀
+  var title, sub;
+  if (isComplex) {
+    title = '유형 4. 복합 전달 간극형';
+    sub = '신중함, 배려, 겸손이라는 강점이 여러 상황에서 자기축소의 신호로 전달되고 있는 유형입니다.';
+  } else {
+    title = highest.label;
+    if (highest.part === 1) {
+      sub = '신중하게 생각하는 강점이 있지만, 확신을 밖으로 전달하는 신호가 부족한 유형입니다.';
+    } else if (highest.part === 2) {
+      sub = '상대를 존중하고 조율하는 능력이 있지만, 자신의 기준과 의견이 충분히 드러나지 않는 유형입니다.';
+    } else {
+      sub = '능력과 경험이 있어도 먼저 드러내지 않아, 실제 역량보다 낮게 평가받을 가능성이 있는 유형입니다.';
+    }
+  }
+
+  document.getElementById('resultTitle').textContent = title;
+  document.getElementById('resultSub').textContent = sub;
+
+  // 파트별 결과 렌더링
+  var partsWrap = document.getElementById('resultParts');
+  partsWrap.innerHTML = '';
+  var partNames = ['신중함 vs 자신 없음', '배려 vs 주관 없음', '겸손함 vs 무능함'];
+  var partColors = ['rp1', 'rp2', 'rp3'];
+
+  parts.forEach(function(p, i) {
+    var pct = Math.round(p.score / max * 100);
+    var isHigh = p.score >= 6;
+    var div = document.createElement('div');
+    div.className = 'result-part ' + partColors[i] + (isHigh ? ' high' : '');
+    div.innerHTML =
+      '<div class="rp-header ' + partColors[i] + '">' +
+        '<span class="rp-title">PART ' + (i+1) + ' · ' + partNames[i] + '</span>' +
+        '<span class="rp-score">' + p.score + '/' + max + 'pt</span>' +
+      '</div>' +
+      '<div class="rp-bar-bg ' + partColors[i] + '"><div class="rp-bar-fill" style="width:' + pct + '%"></div></div>' +
+      '<div class="rp-desc">' + (isHigh ? p.high : p.low).replace(/\n/g, '<br>') + '</div>';
+    partsWrap.appendChild(div);
+  });
+
+  // 인사이트
+  var insight;
+  if (isComplex) {
+    insight = '강점이 오히려 자기축소의 신호로 전달되고 있습니다.\n의도한 나와 전달되는 나 사이의 간격,\n지금 좁힐 수 있습니다.';
+  } else if (totalScore <= 10) {
+    insight = '내가 의도한 나와\n사람들이 보는 나 사이의 간격,\n지금 좁힐 수 있습니다.';
+  } else {
+    insight = '내가 의도한 나와\n사람들이 보는 나 사이의 간격,\n지금 좁힐 수 있습니다.';
+  }
+  document.getElementById('resultInsight').textContent = insight;
+
+  // 구글 시트 전송
+  var payload = {
+    name: userInfo.name, phone: userInfo.phone, email: userInfo.email,
+    grade: isComplex ? '복합형' : highest.label,
+    score: totalScore,
+    p1: p1, p2: p2, p3: p3
+  };
+  scores.forEach(function(s, i) { payload['q' + (i+1)] = s; });
+  try {
+    fetch(SCRIPT_URL, {
+      method: 'POST', mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {}
+}
+</script>
+
+
+</body></html>
